@@ -1,50 +1,38 @@
-<!doctype html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>The (Not) Impossible Quiz</title>
-  <link rel="stylesheet" href="style.css" />
-  <script defer src="game.js"></script>
+	<meta charset="utf-8">
+	<title>TITLE</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	<link rel='stylesheet' type='text/css' href='stylesheet.css'/>
+    <script type='text/javascript' src='script.js'></script>
+	<link href="https://fonts.googleapis.com/css?family=Patrick+Hand+SC" rel="stylesheet">
+	
 </head>
 <body>
-  <div class="bg-noise" aria-hidden="true"></div>
-
-  <main class="wrap">
-    <!-- MAIN MENU -->
-    <section id="menu" class="card">
-      <header class="title">
-        <div class="badge">IMPOSSIBLE</div>
-        <h1>The (Not) Impossible Quiz</h1>
-        <p class="subtitle">Click carefully. The game definitely won’t.</p>
-      </header>
-
-      <div class="menu-actions">
-        <button id="playBtn" class="btn btn-primary">Play Game</button>
-        <!-- Add more buttons later (Options / Credits) -->
-      </div>
-
-      <footer class="hint">
-        Tip: this UI is innocent… for now.
-      </footer>
-    </section>
-
-    <!-- GAME SCREEN (hidden for now) -->
-    <section id="game" class="card hidden">
-      <header class="game-top">
-        <div class="stat"><span>Lives</span><strong id="lives">3</strong></div>
-        <div class="stat"><span>Question</span><strong id="qnum">1</strong></div>
-      </header>
-
-      <div class="question-area">
-        <h2 id="questionText">Question will go here.</h2>
-        <p class="subtitle" id="questionSub">We’ll build this next.</p>
-      </div>
-
-      <div class="game-actions">
-        <button id="backBtn" class="btn">Back to Menu</button>
-      </div>
-    </section>
-  </main>
+	<div id="game">
+		<div id="wrong"><span id='red'>WRONG!</span> -1 LIFE!</div>
+		<div id="gameOverScreen"><span id='redGameOver'>GAME OVER</span><span id='againGameOver'>TRY AGAIN</span></div>
+		<div id="questionText"></div>
+		<div id="titleText"></div>
+		<div class="qContainer">
+			<div class="qContainer">
+			<div id="q1" class="Qs"></div>
+			<div id="q2" class="Qs"></div>
+			</div>
+			<div class="qContainer">
+			<div id="q3" class="Qs"></div>
+			<div id="q4" class="Qs"></div>
+			</div>
+		</div>
+		<div id="bottom">
+			<div id="lives">LIVES: <span id="liveText"></span></div>
+			<div id="skips"></div>
+		</div>
+		
+	</div>
 </body>
 </html>
