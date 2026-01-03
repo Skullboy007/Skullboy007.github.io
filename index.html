@@ -1,14 +1,50 @@
 <!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Impossible Quiz Clone</title>
-  </head>
-  <body>
-    <h1>Hello GitHub Pages 👋</h1>
-  </body>
-</html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The (Not) Impossible Quiz</title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="game.js"></script>
+</head>
+<body>
+  <div class="bg-noise" aria-hidden="true"></div>
 
-<link rel="stylesheet" href="style.css">
-<script defer src="game.js"></script>
+  <main class="wrap">
+    <!-- MAIN MENU -->
+    <section id="menu" class="card">
+      <header class="title">
+        <div class="badge">IMPOSSIBLE</div>
+        <h1>The (Not) Impossible Quiz</h1>
+        <p class="subtitle">Click carefully. The game definitely won’t.</p>
+      </header>
+
+      <div class="menu-actions">
+        <button id="playBtn" class="btn btn-primary">Play Game</button>
+        <!-- Add more buttons later (Options / Credits) -->
+      </div>
+
+      <footer class="hint">
+        Tip: this UI is innocent… for now.
+      </footer>
+    </section>
+
+    <!-- GAME SCREEN (hidden for now) -->
+    <section id="game" class="card hidden">
+      <header class="game-top">
+        <div class="stat"><span>Lives</span><strong id="lives">3</strong></div>
+        <div class="stat"><span>Question</span><strong id="qnum">1</strong></div>
+      </header>
+
+      <div class="question-area">
+        <h2 id="questionText">Question will go here.</h2>
+        <p class="subtitle" id="questionSub">We’ll build this next.</p>
+      </div>
+
+      <div class="game-actions">
+        <button id="backBtn" class="btn">Back to Menu</button>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
