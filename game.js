@@ -4,6 +4,23 @@ $(document).ready(function () {
 	var noSkips = 7;
 	var skips = 0;
 	var cantTouch = false;
+
+	function playSFX(id){
+		var a = document.getElementById(id);
+		if (!a) return;
+		try{
+			a.currentTime = 0;
+			a.play();
+		}catch(e){}
+	}
+	function sfxClick(){ playSFX('sfxClick'); }
+	function sfxCorrect(){ playSFX('sfxCorrect'); }
+	function sfxWrong(){ playSFX('sfxWrong'); }
+	function sfxGameOver(){ playSFX('sfxGameOver'); }
+		// click sound for any clickable game element
+	$(document).on('click', '#q1,#q2,#q3,#q4,#answerTo4,#hiddenCorrect,#notThis1,#notThis2,#notThis3,#notThis4,#notThis5,#notThis6,#tenOne,#tenTwo,#tenThree,#tenFour,#tenFive,#againGameOver', function(){
+		sfxClick();
+	});
 	
 	function roomLevel(){
 		switch(level){
@@ -177,6 +194,7 @@ $(document).ready(function () {
 		$('body').append('<div id="win">YOU WON!!</div>')
 	}
 	function gameOver(){
+		sfxGameOver();
 		$('#gameOverScreen').show();
 		$('#game').css({'overflow':'hidden'});
 	}
@@ -191,6 +209,7 @@ $(document).ready(function () {
 	}
 	function loseLife(){
 		liveCount--;
+		sfxWrong();
 		$('#wrong').fadeIn( "slow" ).fadeOut( "slow" );;
 	}
 	$('#q1').click(function(){
@@ -254,6 +273,7 @@ $(document).ready(function () {
 				lvSeven()
 				break;
 			case 9:
+				sfxCorrect();
 				level++;
 				roomLevel();
 				break;
@@ -268,6 +288,7 @@ $(document).ready(function () {
 				lvOne();
 				break;
 			case 2:
+				sfxCorrect();
 				level++;
 				roomLevel();
 				break;
@@ -298,6 +319,7 @@ $(document).ready(function () {
 	$('#q4').click(function(){
 		switch(level){
 			case 1:
+				sfxCorrect();
 				level++;
 				roomLevel();
 				break;
@@ -318,6 +340,7 @@ $(document).ready(function () {
 				lvSix()
 				break;
 			case 7:
+				sfxCorrect();
 				level++;
 				roomLevel();
 				break;
@@ -331,6 +354,7 @@ $(document).ready(function () {
 	});
 	
 	$(document).on('click','#answerTo4',function(){
+		sfxCorrect();
 		level++;
 		roomLevel();
 	});
@@ -351,6 +375,7 @@ $(document).ready(function () {
 			if ($('#rightMouseHere').is(':hover')) {
 				return false;
 			} else if ($('#leftMouseHere').is(':hover')) {
+				sfxCorrect();
 				level++;
 				roomLevel();
 				return false;
@@ -367,10 +392,12 @@ $(document).ready(function () {
 		lvEight();
 	});
 	$(document).on('click','#hiddenCorrect',function(){
+		sfxCorrect();
 		level++;
 		roomLevel();
 	});
 	$(document).on('click','#tenTwo',function(){
+		sfxCorrect();
 		level++;
 		skips++;
 		noSkips--;
