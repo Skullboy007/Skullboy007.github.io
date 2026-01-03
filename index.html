@@ -1,58 +1,39 @@
-<!doctype html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The (Not) Impossible Quiz</title>
+	<meta charset="utf-8">
+	<title>TITLE</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
-  <!-- Font + icons -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css?family=Patrick+Hand+SC" rel="stylesheet">
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<link rel='stylesheet' type='text/css' href='style.css'/>
+    <script type='text/javascript' src='game.js'></script>
 
-  <link rel="stylesheet" href="style.css" />
-  <script defer src="game.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Patrick+Hand+SC" rel="stylesheet">
 </head>
-
 <body>
-  <!-- MAIN MENU -->
-  <section id="menu" class="menu-screen">
-    <div class="menu-card">
-      <div class="badge">IMPOSSIBLE</div>
-      <h1>The (Not) Impossible Quiz</h1>
-      <p class="subtitle">Click carefully.</p>
-
-      <button id="playBtn" class="btn btn-primary">Play Game</button>
-    </div>
-  </section>
-
-  <!-- GAME -->
-  <div id="game" class="hidden">
-    <div id="wrong"><span id="red">WRONG!</span> -1 LIFE!</div>
-    <div id="gameOverScreen">
-      <span id="redGameOver">GAME OVER</span>
-      <span id="againGameOver">TRY AGAIN</span>
-    </div>
-
-    <div id="questionText"></div>
-    <div id="titleText"></div>
-
-    <div class="qContainer">
-      <div class="qContainer">
-        <div id="q1" class="Qs"></div>
-        <div id="q2" class="Qs"></div>
-      </div>
-      <div class="qContainer">
-        <div id="q3" class="Qs"></div>
-        <div id="q4" class="Qs"></div>
-      </div>
-    </div>
-
-    <div id="bottom">
-      <div id="lives">LIVES: <span id="liveText"></span></div>
-      <div id="skips"></div>
-    </div>
-  </div>
+	<div id="game">
+		<div id="wrong"><span id='red'>WRONG!</span> -1 LIFE!</div>
+		<div id="gameOverScreen"><span id='redGameOver'>GAME OVER</span><span id='againGameOver'>TRY AGAIN</span></div>
+		<div id="questionText"></div>
+		<div id="titleText"></div>
+		<div class="qContainer">
+			<div class="qContainer">
+			<div id="q1" class="Qs"></div>
+			<div id="q2" class="Qs"></div>
+			</div>
+			<div class="qContainer">
+			<div id="q3" class="Qs"></div>
+			<div id="q4" class="Qs"></div>
+			</div>
+		</div>
+		<div id="bottom">
+			<div id="lives">LIVES: <span id="liveText"></span></div>
+			<div id="skips"></div>
+		</div>
+		
+	</div>
 </body>
 </html>
