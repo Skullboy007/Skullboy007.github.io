@@ -48,7 +48,7 @@ $(document).ready(function () {
 			]
 		},
 		{
-			title: "Who stole the wallet?",
+			title: "Ok, who just stole 10 wallets?",
 			answers: [
 				{ text: "Quirky Andrei", correct: true },
 				{ text: "Fat Andrei", correct: true },
