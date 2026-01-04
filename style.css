@@ -187,6 +187,9 @@ html,body{
 #tenFive{
 }
 #wrong{
+	z-index:5;
+	left:50%;
+	transform:translateX(-50%);
 	position:absolute;
 	height:180px;
 	width:270px;
