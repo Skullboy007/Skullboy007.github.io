@@ -1,10 +1,6 @@
 $(document).ready(function () {
-	var level = 1;
-	var liveCount = 3;
-	var noSkips = 7;
-	var skips = 0;
-	var cantTouch = false;
 
+	// --- SFX (requires <audio id="sfxClick"> etc. in index.html) ---
 	function playSFX(id){
 		var a = document.getElementById(id);
 		if (!a) return;
@@ -17,395 +13,187 @@ $(document).ready(function () {
 	function sfxCorrect(){ playSFX('sfxCorrect'); }
 	function sfxWrong(){ playSFX('sfxWrong'); }
 	function sfxGameOver(){ playSFX('sfxGameOver'); }
-		// click sound for any clickable game element
-	$(document).on('click', '#q1,#q2,#q3,#q4,#answerTo4,#hiddenCorrect,#notThis1,#notThis2,#notThis3,#notThis4,#notThis5,#notThis6,#tenOne,#tenTwo,#tenThree,#tenFour,#tenFive,#againGameOver', function(){
-		sfxClick();
-	});
-	
-	function roomLevel(){
-		switch(level){
-			case 1:
-				lvOne()
-				break;
-			case 2:
-				lvTwo()
-				break;
-			case 3:
-				lvThree()
-				break;
-			case 4:
-				lvFour()
-				break;
-			case 5:
-				lvFive()
-				break;
-			case 6:
-				lvSix()
-				break;
-			case 7:
-				lvSeven()
-				break;
-			case 8:
-				lvEight()
-				break;
-			case 9:
-				lvNine()
-				break;
-			case 10:
-				lvTen()
-				break;
-			case 11:
-				lvEnd()
-				break;
-			default:
-				alert('Error. Refresh page');
+
+	// --- GAME STATE ---
+	var level = 1;        // 1-based question number
+	var liveCount = 3;
+
+	// (Optional: keep these if you later add skips)
+	var noSkips = 7;
+	var skips = 0;
+
+	// --- QUESTIONS (only 5 for now) ---
+	// correct: number OR array of numbers (1..4)
+	// next: optional jump target question number (1-based)
+	var questions = [
+		{
+			title: "What do you hear at a silent comedy club?",
+			answers: [
+				{ text: "Go to 24", next: 24 },
+				{ text: "Nope", correct: true },
+				{ text: "Canned Laughter" },
+				{ text: "Tennis Elbow" }
+			]
+		},
+		{
+			title: "Who stole the wallet?",
+			answers: [
+				{ text: "Quirky Andrei", correct: true },
+				{ text: "Fat Andrei", correct: true },
+				{ text: "Hacker Andrei", correct: true },
+				{ text: "Nobody" }
+			]
+		},
+		{
+			title: "Why is the police station so empty?",
+			answers: [
+				{ text: "They all broke out" },
+				{ text: "Help there's a giant rabbit" },
+				{ text: "The officials got bribed", correct: true },
+				{ text: "Don't you mean the prison?" }
+			]
+		},
+		{
+			title: "What do you call a super vegetable?",
+			answers: [
+				{ text: "A-Corn", correct: true },
+				{ text: "A scam" },
+				{ text: "Pump-King" },
+				{ text: "Dish Soap" }
+			]
+		},
+		{
+			title: "What's the mass of Fat Andrei?",
+			answers: [
+				{ text: "6 Semi-trucks" },
+				{ text: "5000 Eggplants" },
+				{ text: "120 Boulders" },
+				{ text: "naneinf", correct: true }
+			]
 		}
+	];
+
+	// --- UI HELPERS ---
+	function renderSkips(){
+		$('#skips').html(
+			'<i class="fa fa-arrow-right aSkip" aria-hidden="true"></i>'.repeat(skips) +
+			'<i class="fa fa-arrow-right" aria-hidden="true"></i>'.repeat(noSkips)
+		);
 	}
-	roomLevel()
-	function restart(){
-		$('#q1,#q2,#q3,#q4').css({'font-size':'50px','font-family':'Patrick Hand SC, cursive','color':'black'});
-		$('#gameOverScreen').hide();
-		$('#leftMouseHere,#rightMouseHere,#notThis1,#notThis2,#notThis3,#notThis4,#notThis5,#notThis6,#hiddenCorrect,.sec,#tenOne,#tenTwo,#tenThree,#tenFour,#tenFive').remove();
-		$('.Qs,.qContainer').show();
-		level = 1;
-		liveCount = 3;
-		noSkips = 7;
-		skips = 0;
-		cantTouch = false;
-		roomLevel();
-	}
-	function lvOne(){
-		$('#questionText').html('1.');
-		$('#titleText').html('HOW MANY HOLES IN A POLO?');
-		$('#q1').html('ONE');
-		$('#q2').html('TWO');
-		$('#q3').html('THREE');
-		$('#q4').html('FOUR');
-		$('#liveText').html(liveCount);
-		$('#skips').html('<i class="fa fa-arrow-right aSkip" aria-hidden="true"></i>'.repeat(skips) + '<i class="fa fa-arrow-right" aria-hidden="true"></i>'.repeat(noSkips));
-		checkForLives()
-	}
-	function lvTwo(){
-		$('#questionText').html('2.');
-		$('#titleText').html('CAN A MATCH BOX?');
-		$('#q1').html('YES');
-		$('#q2').html('NO');
-		$('#q3').html('NO, BUT A TIN CAN').css({'font-size':'30px'});
-		$('#q4').html('YES, ONE BEAT MIKE TYSON').css({'font-size':'29px'});
-		$('#liveText').html(liveCount);
-		$('#skips').html('<i class="fa fa-arrow-right aSkip" aria-hidden="true"></i>'.repeat(skips) + '<i class="fa fa-arrow-right" aria-hidden="true"></i>'.repeat(noSkips));
-		checkForLives()
-	}
-	function lvThree(){
-		$('#questionText').html('3.');
-		$('#titleText').html('.SDRAWKCAB NOITSEUQ SIHT REWSNA').css({'font-size':'50px'});
-		$('#q1').html('K.O');
-		$('#q2').html('WHAT?');
-		$('#q3').html('I DON\'T UNDERSTAND').css({'font-size':'29px'});
-		$('#q4').html('TENNIS ELBOW').css({'font-size':'40px'});
-		$('#liveText').html(liveCount);
-		$('#skips').html('<i class="fa fa-arrow-right aSkip" aria-hidden="true"></i>'.repeat(skips) + '<i class="fa fa-arrow-right" aria-hidden="true"></i>'.repeat(noSkips));
-		checkForLives()
-	}
-	function lvFour(){
-		$('#questionText').html('4.');
-		$('#titleText').html('CLICK <span id="answerTo4">THE ANSWER</span>').css({'font-size':'60px'});
-		$('#q1').html('OUT OF ORDER').css({'font-size':'30px','color':'red'});
-		$('#q2').html('OUT OF ORDER').css({'font-size':'30px','color':'red'});
-		$('#q3').html('OUT OF ORDER').css({'font-size':'30px','color':'red'});
-		$('#q4').html('OUT OF ORDER').css({'font-size':'30px','color':'red'});
-		$('#liveText').html(liveCount);
-		$('#skips').html('<i class="fa fa-arrow-right aSkip" aria-hidden="true"></i>'.repeat(skips) + '<i class="fa fa-arrow-right" aria-hidden="true"></i>'.repeat(noSkips));
-		checkForLives()
-	}
-	function lvFive(){
-		$('#leftMouseHere').remove();
-		$('#rightMouseHere').remove();
-		$('#questionText').html('5.');
-		$('#titleText').html('PUT THE MOUSE......<br/> ..... ON HERE');
-		$('#bottom').before('<div id="rightMouseHere">Here</div>')
-		$('#game').css({'overflow':'hidden','background':'white'});
-		$('.qContainer').hide();
-		$('#liveText').html(liveCount);
-		$('#skips').html('<i class="fa fa-arrow-right aSkip" aria-hidden="true"></i>'.repeat(skips) + '<i class="fa fa-arrow-right" aria-hidden="true"></i>'.repeat(noSkips));
-		checkForLives()
-	}
-	function lvSix(){
-		$('.qContainer').show();
-		$('#leftMouseHere').remove();
-		$('#rightMouseHere').remove();
-		$('#game').css({'overflow':'visible','background':'white'});
-		$('#questionText').html('6.');
-		$('#titleText').html('√ONION');
-		$('#q1').html('28').css({'font-size':'50px','color':'black'});
-		$('#q2').html('CARROT').css({'font-size':'50px','color':'black'});
-		$('#q3').html('SHALLOTS').css({'font-size':'50px','color':'black'});
-		$('#q4').html('π').css({'font-size':'50px','color':'black'});
-		$('#liveText').html(liveCount);
-		$('#skips').html('<i class="fa fa-arrow-right aSkip" aria-hidden="true"></i>'.repeat(skips) + '<i class="fa fa-arrow-right" aria-hidden="true"></i>'.repeat(noSkips));
-		checkForLives()
-	}
-	function lvSeven(){
-		$('#questionText').html('7.');
-		$('#titleText').html('THE ANSWER IS REALLY BIG');
-		$('#q1').html('ANSWER');
-		$('#q2').html('REALLY BIG');
-		$('#q3').html('∞');
-		$('#q4').html('AN ELEPHANT').css({'font-size':'40px'});
-		$('#liveText').html(liveCount);
-		$('#skips').html('<i class="fa fa-arrow-right aSkip" aria-hidden="true"></i>'.repeat(skips) + '<i class="fa fa-arrow-right" aria-hidden="true"></i>'.repeat(noSkips));
-		checkForLives()
-	}
-	function lvEight(){
-		$('#notThis1,#notThis2,#notThis3,#notThis4,#notThis5,#notThis6,#hiddenCorrect').remove();
-		$('#questionText').html('8.');
-		$('#titleText').html('SEARCH!');
-		$('.qContainer').hide();
-		$('#bottom').before('<div id="notThis1">Nope</div><div id="notThis2">No</div><div id="notThis3">Keep looking</div><div id="notThis4">Try again</div><div id="notThis5">:\\(</div><div id="notThis6">X</div><div id="hiddenCorrect"><i class="fa fa-check" aria-hidden="true"></i></div>')
-		$('#liveText').html(liveCount);
-		$('#skips').html('<i class="fa fa-arrow-right aSkip" aria-hidden="true"></i>'.repeat(skips) + '<i class="fa fa-arrow-right" aria-hidden="true"></i>'.repeat(noSkips));
-		checkForLives()
-	}
-	function lvNine(){
-		$('.qContainer').show();
-		$('#notThis1,#notThis2,#notThis3,#notThis4,#notThis5,#notThis6,#hiddenCorrect').hide();
-		$('#questionText').html('9.');
-		$('#titleText').html('WHAT WAS THE ANSWER TO QUESTION 2?').css({'font-size':'50px'});
-		$('#q1').html('THAT ONE →').css({'font-family':'arial','font-size':'30px'});
-		$('#q2').html('THAT ONE ↙').css({'font-family':'arial','font-size':'30px'});
-		$('#q3').html('THAT ONE ↑').css({'font-family':'arial','font-size':'30px'});
-		$('#q4').html('THIS ONE').css({'font-family':'arial','font-size':'40px'});
-		$('#liveText').html(liveCount);
-		$('#skips').html('<i class="fa fa-arrow-right aSkip" aria-hidden="true"></i>'.repeat(skips) + '<i class="fa fa-arrow-right" aria-hidden="true"></i>'.repeat(noSkips));
-		checkForLives()
-	}
-	function lvTen(){
-		$('#q1,#q2,#q3,#q4').css({'font-size':'50px','font-family':'Patrick Hand SC, cursive;'});
-		$('#leftMouseHere,#rightMouseHere,#notThis1,#notThis2,#notThis3,#notThis4,#notThis5,#notThis6,#hiddenCorrect,.sec,#tenOne,#tenTwo,#tenThree,#tenFour,#tenFive').remove();
-		$('#questionText').html('10.');
-		$('#titleText').html('WHICH ONE IS FOOD?').css({'font-size':'50px'});
-		$('.qContainer').hide();
-		$('#bottom').before('<div class="sec"><i class="fa fa-globe" aria-hidden="true" id="tenOne"></i></div><div class="sec"><img id="tenTwo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Tooth_icon_001.svg/477px-Tooth_icon_001.svg.png" alt="teeth icon"></div><div class="sec"><i class="fa fa-eye" id="tenThree" aria-hidden="true"></i></div><div class="sec"><img id="tenFour" src="http://freeflaticons.com/wp-content/uploads/2014/10/chair-141466725248nkg.png" alt="chair icon"></div><div class="sec"><i id="tenFive" class="fa fa-pencil" aria-hidden="true"></i></div>')
-		$('#liveText').html(liveCount);
-		$('#skips').html('<i class="fa fa-arrow-right aSkip" aria-hidden="true"></i>'.repeat(skips) + '<i class="fa fa-arrow-right" aria-hidden="true"></i>'.repeat(noSkips));
-		checkForLives()
-	}
-	function lvEnd(){
-		$('body').append('<div id="win">YOU WON!!</div>')
-	}
-	function gameOver(){
-		sfxGameOver();
-		$('#gameOverScreen').show();
-		$('#game').css({'overflow':'hidden'});
-	}
-	$('#againGameOver').click(function(){
-		restart();
-		//location.reload();
-	});
+
 	function checkForLives(){
 		if (liveCount <= 0){
 			gameOver();
 		}
 	}
+
 	function loseLife(){
 		liveCount--;
 		sfxWrong();
-		$('#wrong').fadeIn( "slow" ).fadeOut( "slow" );;
+		$('#wrong').fadeIn("slow").fadeOut("slow");
+		$('#liveText').html(liveCount);
+		checkForLives();
 	}
-	$('#q1').click(function(){
-		switch(level){
-			case 1:
-				loseLife();
-				lvOne();
-				break;
-			case 2:
-				loseLife();
-				lvTwo()
-				break;
-			case 3:
-				level++;
-				roomLevel()
-				break;
-			case 4:
-				loseLife();
-				lvFour()
-				break;
-			case 6:
-				loseLife();
-				lvSix()
-				break;
-			case 7:
-				loseLife();
-				lvSeven()
-				break;
-			case 9:
-				loseLife();
-				lvNine()
-				break;
-			default:
-				alert('Error. Refresh page');
+
+	function gameOver(){
+		sfxGameOver();
+		$('#gameOverScreen').show();
+		$('#game').css({'overflow':'hidden'});
+	}
+
+	function win(){
+		$('body').append('<div id="win">YOU WON!!</div>');
+	}
+
+	function restart(){
+		$('#gameOverScreen').hide();
+		$('#win').remove();
+
+		// reset styles that may have been changed by other “trick” questions later
+		$('#q1,#q2,#q3,#q4').css({'font-size':'50px','font-family':'Patrick Hand SC, cursive','color':'black'});
+		$('#titleText').css({'font-size':'60px'});
+		$('#game').css({'overflow':'visible','background':'transparent'});
+
+		level = 1;
+		liveCount = 3;
+		noSkips = 7;
+		skips = 0;
+
+		loadLevel();
+	}
+
+	$('#againGameOver').click(function(){
+		sfxClick();
+		restart();
+	});
+
+	// --- CORE: LOAD A QUESTION ---
+	function loadLevel(){
+		$('#wrong').hide();
+		$('#liveText').html(liveCount);
+		renderSkips();
+
+		// finished all questions?
+		if (level > questions.length){
+			win();
+			return;
 		}
-	});
-	$('#q2').click(function(){
-		switch(level){
-			case 1:
-				loseLife();
-				lvOne();
-				break;
-			case 2:
-				loseLife();
-				lvTwo()
-				break;
-			case 3:
-				loseLife();
-				lvThree()
-				break;
-			case 4:
-				loseLife();
-				lvFour()
-				break;
-			case 6:
-				loseLife();
-				lvSix()
-				break;
-			case 7:
-				loseLife();
-				lvSeven()
-				break;
-			case 9:
+
+		var q = questions[level - 1];
+
+		$('#questionText').html(level + '.');
+		$('#titleText').html(q.title);
+
+		$('#q1').html(q.answers[0].text);
+		$('#q2').html(q.answers[1].text);
+		$('#q3').html(q.answers[2].text);
+		$('#q4').html(q.answers[3].text);
+
+		checkForLives();
+	}
+
+	// --- HANDLE ANSWER CLICK ---
+	function onAnswer(choiceIndex){ // 1..4
+		sfxClick();
+
+		// already dead
+		if (liveCount <= 0) return;
+
+		var q = questions[level - 1];
+		var a = q.answers[choiceIndex - 1];
+
+		// Jump logic (e.g., "Go to 24")
+		if (a.next != null){
+			// Only jump if that question exists for now, otherwise treat as wrong
+			if (a.next >= 1 && a.next <= questions.length){
 				sfxCorrect();
-				level++;
-				roomLevel();
-				break;
-			default:
-				alert('Error. Refresh page');
+				level = a.next;
+				loadLevel();
+				return;
+			} else {
+				loseLife();
+				loadLevel();
+				return;
+			}
 		}
-	});
-	$('#q3').click(function(){
-		switch(level){
-			case 1:
-				loseLife();
-				lvOne();
-				break;
-			case 2:
-				sfxCorrect();
-				level++;
-				roomLevel();
-				break;
-			case 3:
-				loseLife();
-				lvThree()
-				break;
-			case 4:
-				loseLife();
-				lvFour()
-				break;
-			case 6:
-				level++;
-				roomLevel();
-				break;
-			case 7:
-				loseLife();
-				lvSeven()
-				break;
-			case 9:
-				loseLife();
-				lvNine()
-				break;
-			default:
-				alert('Error. Refresh page');
-		}
-	});
-	$('#q4').click(function(){
-		switch(level){
-			case 1:
-				sfxCorrect();
-				level++;
-				roomLevel();
-				break;
-			case 2:
-				loseLife();
-				lvTwo()
-				break;
-			case 3:
-				loseLife();
-				lvThree()
-				break;
-			case 4:
-				loseLife();
-				lvFour()
-				break;
-			case 6:
-				loseLife();
-				lvSix()
-				break;
-			case 7:
-				sfxCorrect();
-				level++;
-				roomLevel();
-				break;
-			case 9:
-				loseLife();
-				lvNine()
-				break;
-			default:
-				alert('Error. Refresh page');
-		}
-	});
-	
-	$(document).on('click','#answerTo4',function(){
-		sfxCorrect();
-		level++;
-		roomLevel();
-	});
-	
-	$(document).on('mouseenter','#rightMouseHere',function(){
-		$(this).html('GO');
-		$('#titleText').html('NOW, DON\'T TOUCH THE BLUE!');
-		$('#game').css({'background-color':'deepskyblue'});
-		if ($('#leftMouseHere').length){
-			return false;
+
+		// Correct logic
+		if (a.correct === true){
+			sfxCorrect();
+			level++;
+			loadLevel();
 		} else {
-			$('#bottom').before('<div id="leftMouseHere">Next Question</div>');
+			loseLife();
+			loadLevel();
 		}
-		cantTouch = true;
-	});
-	$('#game').mouseover(function(){
-		if (cantTouch == true){
-			if ($('#rightMouseHere').is(':hover')) {
-				return false;
-			} else if ($('#leftMouseHere').is(':hover')) {
-				sfxCorrect();
-				level++;
-				roomLevel();
-				return false;
-			} loseLife();
-			lvFive()
-			cantTouch = false;
-		}
-	});
-	$(document).on('mouseenter','#leftMouseHere',function(){
-		
-	});
-	$(document).on('click','#notThis1,#notThis2,#notThis3,#notThis4,#notThis5,#notThis6',function(){
-		loseLife();
-		lvEight();
-	});
-	$(document).on('click','#hiddenCorrect',function(){
-		sfxCorrect();
-		level++;
-		roomLevel();
-	});
-	$(document).on('click','#tenTwo',function(){
-		sfxCorrect();
-		level++;
-		skips++;
-		noSkips--;
-		lvTen();
-		roomLevel();
-	});
-	$(document).on('click','#tenOne,#tenThree,#tenFour,#tenFive',function(){
-		loseLife()
-		lvTen();
-	});
+	}
+
+	// --- CLICK BINDINGS (same IDs as your original HTML) ---
+	$('#q1').click(function(){ onAnswer(1); });
+	$('#q2').click(function(){ onAnswer(2); });
+	$('#q3').click(function(){ onAnswer(3); });
+	$('#q4').click(function(){ onAnswer(4); });
+
+	// Start game
+	loadLevel();
 });
