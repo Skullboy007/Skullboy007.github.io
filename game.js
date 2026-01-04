@@ -1,4 +1,16 @@
 $(document).ready(function () {
+		// --- Auto-resize text to fit fixed answer boxes ---
+	function fitText($el, maxSize, minSize){
+		$el.css('font-size', maxSize + 'px');
+
+		while (
+			($el[0].scrollHeight > $el.innerHeight() ||
+			 $el[0].scrollWidth  > $el.innerWidth()) &&
+			parseInt($el.css('font-size')) > minSize
+		){
+			$el.css('font-size', (parseInt($el.css('font-size')) - 1) + 'px');
+		}
+	}
 
 	// --- SFX (requires <audio id="sfxClick"> etc. in index.html) ---
 	function playSFX(id){
@@ -128,11 +140,10 @@ $(document).ready(function () {
 	});
 
 	// --- CORE: LOAD A QUESTION ---
-	function loadLevel(){
+		function loadLevel(){
 		$('#liveText').html(liveCount);
 		renderSkips();
 
-		// finished all questions?
 		if (level > questions.length){
 			win();
 			return;
@@ -148,8 +159,14 @@ $(document).ready(function () {
 		$('#q3').html(q.answers[2].text);
 		$('#q4').html(q.answers[3].text);
 
+		fitText($('#q1'), 50, 18);
+		fitText($('#q2'), 50, 18);
+		fitText($('#q3'), 50, 18);
+		fitText($('#q4'), 50, 18);
+
 		checkForLives();
 	}
+
 
 	// --- HANDLE ANSWER CLICK ---
 	function onAnswer(choiceIndex){ // 1..4
