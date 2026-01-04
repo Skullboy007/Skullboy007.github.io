@@ -202,11 +202,17 @@ html,body{
 	display:none;
 	position:relative;
 	z-index:2;
-	width:1080px;
+	width:1200px;
 	height:720px;
 	background-color:black;
 	font-size:100px;
 	color:green;
+
+	display:flex;
+	flex-direction:column;
+	justify-content:center;
+	align-items:center;
+
 	text-shadow:
 		-3px -3px 0 lightgreen,
 		3px -3px 0 lightgreen,
