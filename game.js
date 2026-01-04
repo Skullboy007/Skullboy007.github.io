@@ -29,7 +29,7 @@ $(document).ready(function () {
 		{
 			title: "What do you hear at a silent comedy club?",
 			answers: [
-				{ text: "Go to 24", next: 24 },
+				{ text: "Go to 24",},
 				{ text: "Nope", correct: true },
 				{ text: "Canned Laughter" },
 				{ text: "Tennis Elbow" }
