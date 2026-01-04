@@ -44,20 +44,15 @@ html,body{
 .Qs{
 	border:8px solid blue;
 	width:220px;
-	min-height:70px;      /* was height:70px */
-	height:auto;          /* allow it to grow */
+	height:70px;        /* fixed */
 	background-color:lightpink;
-	font-size:50px;
+	font-size:50px;    /* starting size */
 	display:inline-block;
 	margin:0px 10px 10px 10px;
-
-	overflow:visible;     /* was hidden */
-	white-space:normal;   /* allow wrapping */
-	word-break:break-word;
+	overflow:hidden;   /* keep hidden */
 	line-height:1.05;
-	padding:6px 8px;
-	vertical-align:top;
 }
+
 .Qs:hover{
 	background: brown; 
 	background: -moz-linear-gradient(left,  brown 0%, yellow 50%, brown 100%);
