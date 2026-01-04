@@ -129,7 +129,6 @@ $(document).ready(function () {
 
 	// --- CORE: LOAD A QUESTION ---
 	function loadLevel(){
-		$('#wrong').hide();
 		$('#liveText').html(liveCount);
 		renderSkips();
 
