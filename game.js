@@ -109,7 +109,7 @@ $(document).ready(function () {
 
 	function gameOver(){
 		sfxGameOver();
-		$('#gameOverScreen').show();
+		$('#gameOverScreen').addClass('show');
 		$('#game').css({'overflow':'hidden'});
 	}
 
@@ -118,7 +118,7 @@ $(document).ready(function () {
 	}
 
 	function restart(){
-		$('#gameOverScreen').hide();
+		$('#gameOverScreen').removeClass('show');
 		$('#win').remove();
 
 		// reset styles that may have been changed by other “trick” questions later
