@@ -32,7 +32,11 @@ html,body{
 	font-weight:600;
 	color:blue;
 	font-size:60px;
+	white-space:normal;
+	word-break:break-word;
+	line-height:1.05;
 }
+
 .qContainer{
 	display:block;
 	margin-top:25px;
