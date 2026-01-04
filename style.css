@@ -208,7 +208,6 @@ html,body{
 	font-size:100px;
 	color:green;
 
-	display:flex;
 	flex-direction:column;
 	justify-content:center;
 	align-items:center;
@@ -219,6 +218,11 @@ html,body{
 		-3px 3px 0 lightgreen,
 		3px 3px 0 lightgreen;  
 }
+
+#gameOverScreen.show{
+	display:flex;
+}
+
 #againGameOver:hover{
 	cursor:pointer;
 	color:red;
