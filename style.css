@@ -246,3 +246,16 @@ html,body{
 	text-align:center;
 	opacity:0.7;
 }
+
+/* Force answers to ALWAYS stay side-by-side in rows (like Q1) */
+#game > .qContainer > .qContainer{
+	display:flex;
+	justify-content:center;
+	gap:20px;
+}
+
+/* Force each answer box to always behave like a box in a row */
+.Qs{
+	display:inline-block !important;
+}
+
